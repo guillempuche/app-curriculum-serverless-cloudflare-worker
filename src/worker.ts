@@ -15,7 +15,10 @@ const worker: ExportedHandler<Env> = {
 		try {
 			const url = new URL(request.url);
 			const table = url.searchParams.get('table');
-			const response = await fetch(`${env.SUPABASE_URL}/rest/v1/${table}?select=*`, {
+			const order = url.searchParams.get('order');
+
+			// We're using Supabase ordering, read the [docs](https://supabase.com/docs/reference/javascript/order).
+			const response = await fetch(`${env.SUPABASE_URL}/rest/v1/${table}?select=*&order=${order}`, {
 				method: 'GET',
 				headers: {
 					apikey: env.SUPABASE_KEY,
