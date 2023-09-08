@@ -4,11 +4,9 @@ export interface Env {
 }
 
 /**
- * - Run "npm run dev" in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run "npm run deploy" to publish your worker
+ * Fetch all data of a given Supabase table and sorting with query parameters `table` and `order`. Eg. `?table=experiences&order=end_data.desc,start_date.desc`
  *
- * Learn more at https://developers.cloudflare.com/workers/
+ * _More about Supabase [here](https://supabase.com/docs/guides/api/quickstart)._
  */
 const worker: ExportedHandler<Env> = {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
@@ -17,7 +15,7 @@ const worker: ExportedHandler<Env> = {
 			const table = url.searchParams.get('table');
 			const order = url.searchParams.get('order');
 
-			// We're using Supabase ordering, read the [docs](https://supabase.com/docs/reference/javascript/order).
+			// It's using Supabase ordering, read the [docs](https://supabase.com/docs/reference/javascript/order).
 			const response = await fetch(`${env.SUPABASE_URL}/rest/v1/${table}?select=*&order=${order}`, {
 				method: 'GET',
 				headers: {
@@ -31,11 +29,9 @@ const worker: ExportedHandler<Env> = {
 			}
 
 			const json = JSON.stringify(await response.json());
-			console.log(json);
 
 			return new Response(json);
 		} catch (e) {
-			console.error('Fetching error:', e);
 			return new Response(JSON.stringify(e), { status: 500 });
 		}
 	},

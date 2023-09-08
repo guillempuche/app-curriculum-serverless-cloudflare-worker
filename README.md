@@ -16,7 +16,9 @@ SUPABASE_URL=replace_with_your_base_url
 SUPABASE_KEY=replace_with_your_key
 ```
 
-3. Run locally the worker `npx wrangler dev`.
+3. Run locally the worker `npx wrangler dev` or `npm start`.
+4. Open a browser tab at http://localhost:8787/ to see your worker in action
+5. Run `npx wrangler deploy` or `npm run deploy` to publish your worker
 
 If you deploy the worker, you'll also need to create the secret environment variables on the Cloud. Hence, follow this tutorial ([tutorial here](https://developers.cloudflare.com/workers/configuration/environment-variables/)).
 
