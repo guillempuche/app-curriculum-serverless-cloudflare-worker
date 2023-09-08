@@ -2,3 +2,6 @@ name = "worker-app-curriculum-database"
 main = "src/worker.ts"
 compatibility_date = "2023-09-06"
 usage_model = "bundled"
+
+[placement]
+mode = "smart"
