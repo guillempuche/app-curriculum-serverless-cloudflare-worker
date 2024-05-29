@@ -30,7 +30,17 @@ const worker: ExportedHandler<Env> = {
 
 			const json = JSON.stringify(await response.json());
 
-			return new Response(json);
+			// These headers solve "Reason: CORS header 'Access-Control-Allow-Origin' missing"
+      const headers = new Headers();
+      headers.set('Access-Control-Allow-Origin', 'https://curriculum.guillempuche.com');
+      headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+      headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      headers.set('Content-Type', 'application/json');
+
+			return new Response(json, {
+        status: 200,
+        headers: headers,
+      });
 		} catch (e) {
 			return new Response(JSON.stringify(e), { status: 500 });
 		}
