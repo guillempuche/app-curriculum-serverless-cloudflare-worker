@@ -48,12 +48,11 @@ const worker: ExportedHandler<Env> = {
       });
     } catch (e) {
       const errorResponse = {
-        message: (e as Error).message || e.toString(),
-        stack: (e as Error).stack || 'No stack available',
-        custom: 'This is a custom error response for debugging purposes',
+        message: 'Internal Server Error',
+        custom: 'An error occurred while processing your request.'
       };
       return new Response(JSON.stringify(errorResponse), { status: 500, headers: { 'Content-Type': 'application/json' } });
-    }
+		}
   },
 };
 
